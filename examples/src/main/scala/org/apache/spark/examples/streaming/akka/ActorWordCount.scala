@@ -16,7 +16,7 @@
  */
 
 // scalastyle:off println
-package org.apache.spark.examples.streaming
+package org.apache.spark.examples.streaming.akka
 
 import scala.collection.mutable.LinkedHashSet
 import scala.util.Random
@@ -129,9 +129,15 @@ object FeederActor {
  *   <hostname> and <port> describe the AkkaSystem that Spark Sample feeder is running on.
  *
  * To run this example locally, you may run Feeder Actor as
- *    `$ bin/run-example org.apache.spark.examples.streaming.FeederActor localhost 9999`
+ * {{{
+ *    $ build/sbt \
+ *    "examples/run-main org.apache.spark.examples.streaming.akka.FeederActor localhost 9999"
+ * }}}
  * and then run the example
- *    `$ bin/run-example org.apache.spark.examples.streaming.ActorWordCount localhost 9999`
+ * {{{
+ *    $ build/sbt \
+ *    "examples/run-main org.apache.spark.examples.streaming.akka.ActorWordCount localhost 9999"
+ * }}}
  */
 object ActorWordCount {
   def main(args: Array[String]) {
@@ -141,10 +147,8 @@ object ActorWordCount {
       System.exit(1)
     }
 
-    StreamingExamples.setStreamingLogLevels()
-
     val Seq(host, port) = args.toSeq
-    val sparkConf = new SparkConf().setAppName("ActorWordCount")
+    val sparkConf = new SparkConf().setMaster("local[*]").setAppName("ActorWordCount")
     // Create the context and set the batch size
     val ssc = new StreamingContext(sparkConf, Seconds(2))
 
