@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package org.apache.spark.examples.streaming;
+package org.apache.spark.examples.streaming.akka;
 
 import java.util.Arrays;
 import java.util.Iterator;
@@ -40,7 +40,7 @@ import org.apache.spark.streaming.akka.JavaActorReceiver;
  * goes and subscribe to a typical publisher/feeder actor and receives
  * data.
  *
- * @see [[org.apache.spark.examples.streaming.FeederActor]]
+ * @see [[org.apache.spark.examples.streaming.akka.FeederActor]]
  */
 class JavaSampleActorReceiver<T> extends JavaActorReceiver {
 
@@ -79,11 +79,11 @@ class JavaSampleActorReceiver<T> extends JavaActorReceiver {
  *
  * To run this example locally, you may run Feeder Actor as
  * <code><pre>
- *     $ bin/run-example org.apache.spark.examples.streaming.FeederActor localhost 9999
+ *     $ build/sbt "examples/run-main org.apache.spark.examples.streaming.akka.FeederActor localhost 9999"
  * </pre></code>
  * and then run the example
  * <code><pre>
- *     $ bin/run-example org.apache.spark.examples.streaming.JavaActorWordCount localhost 9999
+ *     $ build/sbt "examples/run-main org.apache.spark.examples.streaming.akka.JavaActorWordCount localhost 9999"
  * </pre></code>
  */
 public class JavaActorWordCount {
@@ -94,11 +94,9 @@ public class JavaActorWordCount {
       System.exit(1);
     }
 
-    StreamingExamples.setStreamingLogLevels();
-
     final String host = args[0];
     final String port = args[1];
-    SparkConf sparkConf = new SparkConf().setAppName("JavaActorWordCount");
+    SparkConf sparkConf = new SparkConf().setMaster("local[*]").setAppName("JavaActorWordCount");
     // Create the context and set the batch size
     JavaStreamingContext jssc = new JavaStreamingContext(sparkConf, new Duration(2000));
 
