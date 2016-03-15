@@ -1,8 +1,5 @@
 language: scala
 sudo: false
-cache:
-  directories:
-    - $HOME/.ivy2
 matrix:
   include:
     # Spark 2.0.0-SNAPSHOT and Scala 2.11
@@ -14,7 +11,7 @@ matrix:
       scala: 2.10.5
       env: TEST_SPARK_VERSION="2.0.0-SNAPSHOT"
 script:
-  - sbt -Dspark.testVersion=$TEST_SPARK_VERSION ++$TRAVIS_SCALA_VERSION clean coverage test examples/test
+  - sbt -Dspark.testVersion=$TEST_SPARK_VERSION ++$TRAVIS_SCALA_VERSION update clean coverage test examples/test
   - sbt ++$TRAVIS_SCALA_VERSION scalastyle examples/scalastyle
 after_success:
   - bash <(curl -s https://codecov.io/bash)
