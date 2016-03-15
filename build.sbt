@@ -6,7 +6,7 @@ scalaVersion in ThisBuild := "2.11.7"
 
 crossScalaVersions in ThisBuild := Seq("2.10.5", "2.11.7")
 
-spName := "org.spark-packages/dstream-akka"
+spName := "org.spark-project/dstream-akka"
 
 sparkVersion in ThisBuild := "2.0.0-SNAPSHOT"
 
@@ -26,12 +26,14 @@ libraryDependencies ++= Seq(
   "com.typesafe.akka" %% "akka-actor" % "2.3.11",
   "com.typesafe.akka" %% "akka-remote" % "2.3.11",
   "org.scalatest" %% "scalatest" % "2.2.1" % "test",
-  "junit" % "junit" % "4.12",
+  "com.novocode" % "junit-interface" % "0.11" % "test",
   "org.apache.spark" %% "spark-core" % testSparkVersion.value % "test" classifier "tests"
 )
 
 // Display full-length stacktraces from ScalaTest:
 testOptions in Test += Tests.Argument("-oF")
+// Display the java unit tests in console
+testOptions in Test += Tests.Argument(TestFrameworks.JUnit, "-v")
 
 ScoverageSbtPlugin.ScoverageKeys.coverageHighlighting := {
   if (scalaBinaryVersion.value == "2.10") false

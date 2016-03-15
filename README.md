@@ -1,6 +1,6 @@
 # Akka data source for dstream (Spark Streaming)
 
-A library for reading data from Akka Actors to [Spark Streaming](http://spark.apache.org/docs/latest/sql-programming-guide.html).
+A library for reading data from Akka Actors to [Spark Streaming](http://spark.apache.org/docs/latest/streaming-programming-guide.html).
 
 [![Build Status](https://travis-ci.org/spark-packages/dstream-akka.svg?branch=master)](https://travis-ci.org/spark-packages/dstream-akka)
 [![codecov.io](http://codecov.io/github/spark-packages/dstream-akka/coverage.svg?branch=master)](http://codecov.io/github/spark-packages/dstream-akka?branch=master)
@@ -50,7 +50,7 @@ DStreams can be created with data streams received through Akka actors by using 
 You need to extend `ActorReceiver` so as to store received data into Spark using `store(...)` methods. The supervisor strategy of
 this actor can be configured to handle failures, etc.
 
-```
+```Scala
 class CustomActor extends ActorReceiver {
   def receive = {
     case data: String => store(data)
@@ -82,7 +82,7 @@ JavaStreamingContext jssc = ...;
 JavaDStream<String> lines = AkkaUtils.<String>createStream(jssc, Props.create(CustomActor.class), "CustomReceiver");
 ```
 
-See [JavaActorWordCount.scala](https://github.com/apache/spark/blob/master/examples/src/main/java/org/apache/spark/examples/streaming/akka/JavaActorWordCount.java) for an end-to-end example.
+See [JavaActorWordCount.scala](https://github.com/spark-packages/dstream-akka/blob/master/examples/src/main/java/org/apache/spark/examples/streaming/akka/JavaActorWordCount.java) for an end-to-end example.
 
 ## Building From Source
 This library is built with [SBT](http://www.scala-sbt.org/0.13/docs/Command-Line-Reference.html),
