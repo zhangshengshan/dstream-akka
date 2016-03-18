@@ -31,8 +31,9 @@ import akka.pattern.ask
 import akka.util.Timeout
 import com.typesafe.config.ConfigFactory
 
-import org.apache.spark.{Logging, TaskContext}
+import org.apache.spark.TaskContext
 import org.apache.spark.annotation.DeveloperApi
+import org.apache.spark.internal.Logging
 import org.apache.spark.storage.StorageLevel
 import org.apache.spark.streaming.receiver.Receiver
 
@@ -64,6 +65,7 @@ object ActorReceiver {
     val akkaConf = ConfigFactory.parseString(
       s"""akka.actor.provider = "akka.remote.RemoteActorRefProvider"
          |akka.remote.enabled-transports = ["akka.remote.netty.tcp"]
+         |akka.remote.netty.tcp.port = "0"
          |""".stripMargin)
     ActorSystem(uniqueSystemName, akkaConf)
   }
