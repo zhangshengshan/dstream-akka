@@ -8,7 +8,7 @@ crossScalaVersions in ThisBuild := Seq("2.10.5", "2.11.7")
 
 spName := "org.spark-project/dstream-akka"
 
-sparkVersion in ThisBuild := "2.0.0-SNAPSHOT"
+sparkVersion in ThisBuild := "2.0.0"
 
 val testSparkVersion = settingKey[String]("The version of Spark to test against.")
 
